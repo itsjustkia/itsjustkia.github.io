@@ -563,6 +563,10 @@
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* fallback: if JS hasn't run yet and element is in view */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
 
   @media (max-width: 900px) {
     #hero { grid-template-columns: 1fr; }
@@ -878,7 +882,7 @@
 <!-- HOBBIES -->
 <section id="hobbies">
   <div class="section-label"><span class="num">06</span> Off-Duty</div>
-  <div class="hobbies-grid reveal">
+  <div class="hobbies-grid">
 
     <div class="hobby-card">
       <div class="hobby-icon">🎮</div>
@@ -912,3 +916,15 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
