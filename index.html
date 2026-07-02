@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kiavash Zareei // AI Security</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Orbitron:wght@500;700;900&family=Monoton&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f0f0f0;
@@ -675,6 +675,172 @@
     .hobbies-grid { grid-template-columns: 1fr 1fr; }
   }
 
+  /* ============================================================
+     ▚▚▚  VAPORWAVE / 80s RETRO THEME OVERRIDE  ▚▚▚
+     ============================================================ */
+  :root {
+    --bg: #0d0221;
+    --red: #ff2fb3;          /* neon magenta accent */
+    --red-light: rgba(255,47,179,0.14);
+    --dark: #f6e9ff;         /* primary text (light) */
+    --mid: #d9c2f0;
+    --muted: #ab90d0;
+    --border: rgba(255,113,206,0.30);
+    --border-dark: rgba(5,217,232,0.45);
+    --cyan: #05d9e8;
+    --grn: #05ffa1;
+    --purple: #b967ff;
+    --display: "Orbitron", "Bebas Neue", sans-serif;
+    --neon-glow: 0 0 6px rgba(255,47,179,.7), 0 0 14px rgba(255,47,179,.4);
+    --cyan-glow: 0 0 6px rgba(5,217,232,.7), 0 0 14px rgba(5,217,232,.4);
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 8%, rgba(255,47,179,.20), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(5,217,232,.18), transparent 60%),
+      linear-gradient(180deg, #2b0a3d 0%, #170430 45%, #0d0221 100%);
+    background-attachment: fixed;
+    color: var(--dark);
+  }
+
+  /* setting sun behind hero */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 90px; left: 50%;
+    width: 460px; height: 460px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 45%, #ffd319 0%, #ff5e7e 42%, #ff2fb3 62%, transparent 72%);
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: .35;
+    z-index: -2;
+    pointer-events: none;
+  }
+  /* perspective neon grid on the floor */
+  body::after {
+    content: "";
+    position: fixed;
+    left: -50%; right: -50%; bottom: 0;
+    height: 45vh;
+    background-image:
+      linear-gradient(rgba(5,217,232,.55) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(255,47,179,.45) 2px, transparent 2px);
+    background-size: 60px 60px;
+    transform: perspective(340px) rotateX(72deg);
+    transform-origin: bottom center;
+    mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 90%);
+    opacity: .55;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    background: rgba(13,2,33,.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--red);
+    box-shadow: 0 0 18px rgba(255,47,179,.45);
+  }
+  .nav-logo { font-family: var(--display); font-weight: 900; color: var(--cyan); text-shadow: var(--cyan-glow); }
+  .nav-logo span { color: var(--red); text-shadow: var(--neon-glow); }
+  .nav-links a { color: var(--cyan); }
+  .nav-links a:hover { color: var(--red); text-shadow: var(--neon-glow); }
+
+  /* STATUS TICKER */
+  .alert-bar { background: linear-gradient(90deg, var(--red), var(--purple), var(--cyan)); box-shadow: 0 0 16px rgba(185,103,255,.5); }
+  .alert-label { background: #0d0221; color: var(--cyan); border-right: 2px solid var(--cyan); text-shadow: var(--cyan-glow); }
+  .alert-scroll { color: #0d0221; font-weight: 500; }
+
+  /* HERO */
+  h1 {
+    font-family: var(--display);
+    font-weight: 900;
+    background: linear-gradient(180deg, #fff 0%, #ffd7f5 30%, #ff71ce 55%, #b967ff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(2px 2px 0 #05d9e8) drop-shadow(4px 4px 12px rgba(255,47,179,.5));
+    letter-spacing: 0.02em;
+  }
+  .h1-sub { color: var(--cyan); text-shadow: var(--cyan-glow); font-family: var(--display); letter-spacing: .25em; }
+  .sys-line { color: var(--muted); }
+  .hero-desc { color: var(--mid); }
+  .hero-desc strong { color: var(--cyan); }
+  .hero-right img { border: 2px solid var(--red); box-shadow: 0 0 24px rgba(255,47,179,.5), 0 0 3px var(--cyan); border-radius: 6px; }
+
+  /* BADGES */
+  .badge {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    color: var(--dark);
+    backdrop-filter: blur(6px);
+  }
+  .badge-active { color: var(--grn); border-color: var(--grn); box-shadow: 0 0 10px rgba(5,255,161,.4); }
+  .badge-green { color: var(--cyan); border-color: var(--cyan); box-shadow: var(--cyan-glow); }
+
+  /* BUTTONS */
+  .btn { font-family: var(--display); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-radius: 4px; }
+  .btn-red { background: linear-gradient(135deg, var(--red), var(--purple)); color: #fff; border: none; box-shadow: var(--neon-glow); }
+  .btn-red:hover { box-shadow: 0 0 12px var(--red), 0 0 26px var(--purple); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); box-shadow: inset 0 0 8px rgba(5,217,232,.15); }
+  .btn-outline:hover { background: rgba(5,217,232,.12); box-shadow: var(--cyan-glow); }
+
+  /* SECTIONS + LABELS */
+  .section-label { color: var(--cyan); font-family: var(--display); letter-spacing: .2em; text-shadow: var(--cyan-glow); border-bottom: 1px solid var(--border); }
+  .section-label .num { color: var(--red); text-shadow: var(--neon-glow); }
+
+  /* RESEARCH / PROJECT CARDS */
+  .project-card { border-bottom: 1px solid var(--border); }
+  .project-num { color: var(--red); font-family: var(--display); font-weight: 900; text-shadow: var(--neon-glow); }
+  .project-date { color: var(--cyan); }
+  .project-content h3 { color: var(--dark); font-family: var(--display); font-weight: 700; }
+  .project-card:hover .project-content h3 { color: var(--red); text-shadow: var(--neon-glow); }
+  .project-content p { color: var(--mid); }
+  .project-content p strong { color: var(--grn); }
+  .tag { background: rgba(255,255,255,.04); border: 1px solid var(--border); color: var(--muted); backdrop-filter: blur(4px); }
+  .tag.live { color: var(--grn); border-color: var(--grn); box-shadow: 0 0 8px rgba(5,255,161,.35); }
+
+  /* ABOUT / SIDEBAR / SKILLS */
+  .about-text p { color: var(--mid); }
+  .about-text strong { color: var(--cyan); }
+  .sidebar-card, .skill-block {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(6px);
+  }
+  .sidebar-card h5 { color: var(--red); text-shadow: var(--neon-glow); }
+  .sidebar-card p, .sidebar-card strong { color: var(--mid); }
+  .sidebar-card strong { color: var(--cyan); }
+  .skill-block h4 { color: var(--cyan); font-family: var(--display); text-shadow: var(--cyan-glow); }
+  .skill-item { color: var(--mid); }
+
+  /* EXPERIENCE */
+  .exp-item { border-bottom: 1px solid var(--border); }
+  .exp-date { color: var(--cyan); }
+  .exp-org { color: var(--muted); }
+  .exp-content h3 { color: var(--dark); font-family: var(--display); font-weight: 700; }
+  .exp-content p { color: var(--mid); }
+
+  /* CONTACT */
+  .contact-link { color: var(--dark); border-bottom: 1px solid var(--border); }
+  .contact-link:hover { color: var(--red); text-shadow: var(--neon-glow); }
+  .contact-link span { color: var(--cyan); }
+
+  /* HOBBIES */
+  .hobby-card { background: rgba(255,255,255,.04); border: 1px solid var(--border); backdrop-filter: blur(6px); }
+  .hobby-card:hover { border-color: var(--red); box-shadow: var(--neon-glow); }
+  .hobby-card h4 { color: var(--cyan); font-family: var(--display); border-bottom: 1px solid var(--border); }
+  .hobby-card p { color: var(--mid); }
+
+  /* FOOTER + HUD */
+  footer { background: rgba(13,2,33,.85); border-top: 1px solid var(--border); color: var(--muted); }
+  footer .red { color: var(--red); text-shadow: var(--neon-glow); }
+  .hud-item { color: var(--muted); }
+  .hud-item span { color: var(--cyan); text-shadow: var(--cyan-glow); }
+
 </style>
 </head>
 <body>
@@ -693,8 +859,8 @@
   <div class="alert-label">STATUS</div>
   <div class="alert-ticker-wrap">
     <div class="alert-scroll">
-      <span>AI AGENT SECURITY &nbsp;·&nbsp; MCP ANALYSIS IN PROGRESS &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA &nbsp;·&nbsp; OPEN TO RESEARCH ROLES</span>
-      <span>AI AGENT SECURITY &nbsp;·&nbsp; MCP ANALYSIS IN PROGRESS &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA &nbsp;·&nbsp; OPEN TO RESEARCH ROLES</span>
+      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
+      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
     </div>
   </div>
 </div>
@@ -703,7 +869,7 @@
 <div id="hero">
   <div class="hero-left">
     <div class="badge-row">
-      <div class="badge badge-active">● Internship Open</div>
+      <div class="badge badge-active">● AI Researcher Intern @ Tandem</div>
       <div class="badge badge-green">✓ PhD Researcher</div>
     </div>
     <div class="sys-line">PhD Student · Computer Science · UMN</div>
@@ -739,6 +905,23 @@
   <div class="project-card reveal">
     <div class="project-left">
       <div class="project-num">01</div>
+      <div class="project-date">2025<br>Under Review</div>
+    </div>
+    <div class="project-content">
+      <h3>TASK NAMESPACE ISOLATION FOR MULTI-AGENT ORCHESTRATION</h3>
+      <p>A defense that scopes every delegated task to an isolated capability namespace, cutting off confused-deputy and cross-task privilege leakage in multi-agent LLM orchestration. Includes a working prototype and evaluation. <strong>Submitted to NDSS 2026 &mdash; currently under review.</strong></p>
+      <div class="project-tags">
+        <span class="tag live">● Under Review</span>
+        <span class="tag">NDSS 2026</span>
+        <span class="tag">Multi-Agent</span>
+        <span class="tag">Capability Isolation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card reveal">
+    <div class="project-left">
+      <div class="project-num">02</div>
       <div class="project-date">Feb. 2026<br>Present</div>
     </div>
     <div class="project-content">
@@ -755,7 +938,7 @@
 
   <div class="project-card reveal">
     <div class="project-left">
-      <div class="project-num">02</div>
+      <div class="project-num">03</div>
       <div class="project-date">Dec. 2025<br>Feb. 2026</div>
     </div>
     <div class="project-content">
@@ -772,7 +955,7 @@
 
   <div class="project-card reveal">
     <div class="project-left">
-      <div class="project-num">03</div>
+      <div class="project-num">04</div>
       <div class="project-date">Jun. 2025<br>Dec. 2025</div>
     </div>
     <div class="project-content">
@@ -807,8 +990,8 @@
         <p><strong>BSc, Computer Engineering</strong><br>University of Tehran<br>Sep. 2019 – Jul. 2023<br>GPA: 3.9</p>
       </div>
       <div class="sidebar-card">
-        <h5>// Objective</h5>
-        <p>Research Internship<br>Summer 2026<br>AI Systems / Agent Security</p>
+        <h5>// Internship</h5>
+        <p><strong>AI Researcher Intern</strong><br>Tandem<br>Summer 2026<br>AI Systems / Agent Security</p>
       </div>
     </div>
   </div>
@@ -853,6 +1036,16 @@
 <section id="experience">
   <div class="section-label"><span class="num">04</span> Field Experience</div>
   <div class="reveal">
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">Summer 2026</div>
+        <div class="exp-org">Tandem</div>
+      </div>
+      <div class="exp-content">
+        <h3>AI Researcher Intern</h3>
+        <p>Research internship focused on AI systems and agent security — investigating trust boundaries, tool-use safety, and failure modes of autonomous multi-agent pipelines.</p>
+      </div>
+    </div>
     <div class="exp-item">
       <div>
         <div class="exp-date">Jun. 2022 – Aug. 2022</div>
