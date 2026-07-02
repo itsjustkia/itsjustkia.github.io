@@ -708,8 +708,8 @@
   body::before {
     content: "";
     position: fixed;
-    top: 90px; left: 50%;
-    width: 460px; height: 460px;
+    top: 54px; left: 50%;
+    width: 360px; height: 360px;
     transform: translateX(-50%);
     background: radial-gradient(circle at 50% 45%, #ffd319 0%, #ff5e7e 42%, #ff2fb3 62%, transparent 72%);
     border-radius: 50%;
@@ -841,9 +841,143 @@
   .hud-item { color: var(--muted); }
   .hud-item span { color: var(--cyan); text-shadow: var(--cyan-glow); }
 
+  /* ============================================================
+     ▚▚▚  MOTION / ANIMATIONS  ▚▚▚
+     ============================================================ */
+
+  /* flowing neon grid on the floor */
+  body::after {
+    background-position: 0 0, 0 0;
+    animation: gridflow 2.8s linear infinite;
+  }
+  @keyframes gridflow {
+    to { background-position: 0 60px, 0 0; }
+  }
+
+  /* pulsing setting sun + scrolling CRT lines across it */
+  body::before {
+    background:
+      repeating-linear-gradient(0deg, transparent 0 7px, rgba(13,2,33,.55) 7px 10px),
+      radial-gradient(circle at 50% 45%, #ffd319 0%, #ff5e7e 42%, #ff2fb3 62%, transparent 72%);
+    background-size: 100% 20px, 100% 100%;
+    transform: translate(calc(-50% + var(--sun-x, 0px)), var(--sun-y, 0px));
+    transition: transform .25s ease-out;
+    animation: sunPulse 5s ease-in-out infinite, sunScan 3.5s linear infinite;
+  }
+  @keyframes sunPulse {
+    0%, 100% { opacity: .16; }
+    50%      { opacity: .26; }
+  }
+  @keyframes sunScan {
+    to { background-position: 0 20px, 0 0; }
+  }
+
+  /* animated chrome shimmer on the hero name */
+  h1 {
+    opacity: 1 !important;
+    background-size: 220% 220%;
+    -webkit-text-stroke: 1px rgba(5,217,232,.40);
+    animation: chromeShift 6s ease-in-out infinite, glitch 7s steps(1) infinite;
+  }
+  @keyframes chromeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50%      { background-position: 100% 100%; }
+  }
+  /* chromatic-aberration glitch pulse via drop-shadow */
+  @keyframes glitch {
+    0%, 92%, 100% { filter: drop-shadow(2px 2px 0 #05d9e8) drop-shadow(0 3px 8px rgba(0,0,0,.75)) drop-shadow(0 0 18px rgba(255,47,179,.45)); }
+    93% { filter: drop-shadow(-3px 0 0 #05d9e8) drop-shadow(3px 0 0 #ff2fb3); transform: translateX(1px); }
+    95% { filter: drop-shadow(3px 0 0 #05d9e8) drop-shadow(-3px 0 0 #ff2fb3); transform: translateX(-2px); }
+    97% { filter: drop-shadow(-2px 0 0 #05d9e8) drop-shadow(2px 0 0 #ff2fb3); transform: translateX(1px); }
+  }
+
+  /* neon flicker on the subtitle */
+  .h1-sub { animation: flicker 4.5s infinite; }
+  @keyframes flicker {
+    0%, 19%, 21%, 55%, 57%, 100% { opacity: 1; text-shadow: var(--cyan-glow); }
+    20%, 56% { opacity: .45; text-shadow: none; }
+  }
+
+  /* animated conveyor for the status ticker background */
+  .alert-bar { background-size: 300% 100%; animation: hueflow 6s linear infinite; }
+  @keyframes hueflow {
+    to { background-position: 300% 0; }
+  }
+
+  /* pulsing "live"/active dots */
+  .badge-active, .tag.live { animation: livepulse 1.6s ease-in-out infinite; }
+  @keyframes livepulse {
+    0%, 100% { box-shadow: 0 0 6px rgba(5,255,161,.35); }
+    50%      { box-shadow: 0 0 16px rgba(5,255,161,.9); }
+  }
+
+  /* card hover motion */
+  .project-card, .exp-item { transition: transform .25s ease, background .25s ease, box-shadow .25s ease; }
+  .project-card:hover, .exp-item:hover {
+    transform: translateX(10px);
+    background: rgba(255,47,179,.05);
+    box-shadow: -4px 0 0 var(--red);
+  }
+  .sidebar-card, .skill-block, .hobby-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .sidebar-card:hover, .skill-block:hover { transform: translateY(-4px); box-shadow: var(--cyan-glow); border-color: var(--cyan); }
+
+  /* shine sweep on buttons */
+  .btn { position: relative; overflow: hidden; }
+  .btn::after {
+    content: "";
+    position: absolute; top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.5), transparent);
+    transform: skewX(-20deg);
+    transition: left .5s ease;
+  }
+  .btn:hover::after { left: 140%; }
+
+  /* section labels: sliding underline */
+  .section-label { position: relative; overflow: hidden; }
+  .section-label::after {
+    content: "";
+    position: absolute; left: 0; bottom: 0;
+    height: 2px; width: 100%;
+    background: linear-gradient(90deg, var(--red), var(--cyan), transparent);
+    transform: translateX(-100%);
+    animation: sweep 3.5s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0% { transform: translateX(-100%); }
+    60%, 100% { transform: translateX(100%); }
+  }
+
+  /* nav logo subtle flicker */
+  .nav-logo span { animation: flicker 6s infinite; }
+
+  /* full-screen CRT scanline + flicker overlay */
+  .crt-overlay {
+    position: fixed; inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px);
+    mix-blend-mode: overlay;
+    animation: crtflicker 6s steps(60) infinite;
+  }
+  @keyframes crtflicker {
+    0%, 100% { opacity: .35; }
+    50%      { opacity: .22; }
+  }
+
+  /* respect reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after, h1, .h1-sub, .alert-bar,
+    .badge-active, .tag.live, .section-label::after, .nav-logo span, .crt-overlay {
+      animation: none !important;
+    }
+  }
+
 </style>
 </head>
 <body>
+
+<div class="crt-overlay"></div>
 
 <nav>
   <a href="#hero" class="nav-logo">ZAREEI <span>//</span></a>
@@ -859,8 +993,8 @@
   <div class="alert-label">STATUS</div>
   <div class="alert-ticker-wrap">
     <div class="alert-scroll">
-      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
-      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
+      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM DIABETES · SAN DIEGO &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
+      <span>AI AGENT SECURITY &nbsp;·&nbsp; NDSS 2026 SUBMISSION UNDER REVIEW &nbsp;·&nbsp; AI RESEARCHER INTERN @ TANDEM DIABETES · SAN DIEGO &nbsp;·&nbsp; UNIVERSITY OF MINNESOTA</span>
     </div>
   </div>
 </div>
@@ -869,14 +1003,14 @@
 <div id="hero">
   <div class="hero-left">
     <div class="badge-row">
-      <div class="badge badge-active">● AI Researcher Intern @ Tandem</div>
+      <div class="badge badge-active">● AI Researcher Intern @ Tandem Diabetes</div>
       <div class="badge badge-green">✓ PhD Researcher</div>
     </div>
     <div class="sys-line">PhD Student · Computer Science · UMN</div>
     <h1>KIAVASH<br>ZAREEI</h1>
-    <div class="h1-sub">AI AGENT SECURITY</div>
+    <div class="h1-sub">DEEP LEARNING × AI SECURITY</div>
     <p class="hero-desc">
-      Studying how <strong>trust breaks down</strong> when autonomous AI systems delegate tasks, call tools, and chain decisions. Focused on <strong>MCP ecosystem risks</strong>, delegation-chain vulnerabilities, and kernel-level memory safety.
+      PhD researcher in <strong>AI systems &amp; agent security</strong>, currently an AI Researcher Intern at <strong>Tandem Diabetes Care</strong>. I build <strong>deep generative models</strong> — conditional LSTM-VAEs for anomaly &amp; drift detection — and <strong>multi-agent systems</strong> that coordinate to get real work done, while studying how trust breaks down when autonomous agents call tools and chain decisions.
     </p>
     <div class="hero-cta">
       <a href="#research" class="btn btn-red">View Research</a>
@@ -976,7 +1110,8 @@
   <div class="section-label"><span class="num">02</span> Personnel File</div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>Second-year PhD student at the <strong>University of Minnesota</strong>, advised by <strong>Prof. Kangjie Lu</strong>. Research sits at the intersection of systems security and AI specifically what happens when AI agents gain the ability to call tools, spawn subagents, and act autonomously.</p>
+      <p>Second-year PhD student at the <strong>University of Minnesota</strong>, advised by <strong>Prof. Kangjie Lu</strong>. My work sits at the intersection of systems security and AI what happens when AI agents gain the ability to call tools, spawn subagents, and act autonomously and increasingly on the <strong>deep foundational models</strong> underneath those systems.</p>
+      <p>Currently an <strong>AI Researcher Intern at Tandem Diabetes Care</strong> (San Diego, on-site), working on <strong>sequence-based generative models</strong> (conditional LSTM-VAE) for anomaly and drift detection, and on a <strong>multi-agent system</strong> that pairs a conversational assistant with an automated tracking/reminder agent to support internal workflows.</p>
       <p>Bachelor's in Computer Engineering from the <strong>University of Tehran</strong> (GPA: 3.9), with three years as a teaching assistant for Python and object-oriented programming.</p>
       <p>Strong background in <strong>Linux kernel internals, memory lifecycle management, and low-level C</strong> a systems lens for thinking about where AI infrastructure fails fundamentally.</p>
     </div>
@@ -991,7 +1126,7 @@
       </div>
       <div class="sidebar-card">
         <h5>// Internship</h5>
-        <p><strong>AI Researcher Intern</strong><br>Tandem<br>Summer 2026<br>AI Systems / Agent Security</p>
+        <p><strong>AI Researcher Intern</strong><br>Tandem Diabetes Care<br>San Diego, CA · On-site<br>Summer 2026</p>
       </div>
     </div>
   </div>
@@ -1019,9 +1154,12 @@
     </div>
     <div class="skill-block">
       <h4>AI / ML</h4>
-      <div class="skill-item">Machine learning models</div>
-      <div class="skill-item">NLP</div>
-      <div class="skill-item">PyTorch</div>
+      <div class="skill-item">Sequence modeling (LSTM / RNN)</div>
+      <div class="skill-item">Generative models (VAE / cVAE)</div>
+      <div class="skill-item">Latent representation learning</div>
+      <div class="skill-item">Anomaly / drift detection</div>
+      <div class="skill-item">Multi-agent LLM systems</div>
+      <div class="skill-item">PyTorch · NLP</div>
     </div>
     <div class="skill-block">
       <h4>Languages & Tools</h4>
@@ -1038,12 +1176,12 @@
   <div class="reveal">
     <div class="exp-item">
       <div>
-        <div class="exp-date">Summer 2026</div>
-        <div class="exp-org">Tandem</div>
+        <div class="exp-date">Summer 2026 · San Diego, CA (On-site)</div>
+        <div class="exp-org">Tandem Diabetes Care</div>
       </div>
       <div class="exp-content">
         <h3>AI Researcher Intern</h3>
-        <p>Research internship focused on AI systems and agent security — investigating trust boundaries, tool-use safety, and failure modes of autonomous multi-agent pipelines.</p>
+        <p>Applied deep-learning research on <strong>sequence-based generative models (conditional LSTM-VAE)</strong> for anomaly and drift detection, plus the design of a <strong>multi-agent system</strong> — a conversational assistant coordinating with an automated tracking/reminder agent — to support internal team workflows.</p>
       </div>
     </div>
     <div class="exp-item">
@@ -1127,6 +1265,18 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* mouse parallax on the vaporwave sun */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const root = document.documentElement;
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 24;
+      const y = (e.clientY / window.innerHeight - 0.5) * 16;
+      root.style.setProperty('--sun-x', x.toFixed(1) + 'px');
+      root.style.setProperty('--sun-y', y.toFixed(1) + 'px');
+    }, { passive: true });
+  })();
 </script>
 </body>
 </html>
