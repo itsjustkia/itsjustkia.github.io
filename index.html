@@ -973,6 +973,14 @@
     }
   }
 
+  /* mobile hero alignment fix */
+  @media (max-width: 640px) {
+    html, body { overflow-x: hidden; }
+    .hero-left { padding: 44px 22px 40px; border-right: none; }
+    #hero h1 { font-size: clamp(46px, 15vw, 72px); -webkit-text-stroke-width: 0.5px; }
+    .hero-desc { max-width: 100%; }
+  }
+
 </style>
 </head>
 <body>
